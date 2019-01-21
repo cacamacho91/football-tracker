@@ -1,6 +1,6 @@
 #Require all external gems
 require 'require_all'
-require 'rest-client'
+require 'unirest'
 require 'json'
 require 'pry'
 

@@ -1,7 +1,12 @@
-# frozen_string_literal: true
-
+# A sample Gemfile
 source "https://rubygems.org"
 
-git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
+gem 'require_all'
+gem 'unirest'
+gem 'json'
+gem 'pry'
 
-# gem "rails"
+require 'require_all'
+require 'unirest'
+require 'json'
+require 'pry'
