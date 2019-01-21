@@ -1,0 +1,3 @@
+def welcome
+  puts "WELCOME TO THE SPURS / PREMIER LEAGUE FOOTBALL TRACKER!"
+end
