@@ -2,6 +2,5 @@
 source "https://rubygems.org"
 
 gem 'require_all'
-gem 'unirest'
+gem 'rest-client'
 gem 'json'
-gem 'pry'
