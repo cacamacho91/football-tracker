@@ -2,14 +2,8 @@
 require 'bundler/setup'
 Bundler.require
 
-require_relative '../lib/api_communicator.rb'
-require_relative '../lib/command_line_interface.rb'
-
-# requiring all model classes
-require_relative '../app/models/country.rb'
-require_relative '../app/models/league.rb'
-require_relative '../app/models/user.rb'
-require_relative '../app/models/userleague.rb'
+require_all 'lib/'
+require_all 'app/'
 
 
 #Set Environemnt Keys

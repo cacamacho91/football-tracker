@@ -16,6 +16,3 @@ chosen_leagues = prompt.multi_select("Great choice, which league(s) in #{chosen_
 
 
 prompt.yes?("You have selected #{chosen_leagues}, from #{chosen_country}, are you happy with this?")
-
-#binding.pry
-#rompt.select("Choose the country you wish to follow football from", %w())
