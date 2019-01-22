@@ -10,6 +10,8 @@ require_relative '../app/models/country.rb'
 require_relative '../app/models/league.rb'
 require_relative '../app/models/user.rb'
 require_relative '../app/models/userleague.rb'
+require_relative '../app/models/team.rb'
+require_relative '../app/models/userteam.rb'
 
 
 #Set Environemnt Keys

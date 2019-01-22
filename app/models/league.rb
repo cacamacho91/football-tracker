@@ -1,6 +1,5 @@
 class League < ActiveRecord::Base
-  has_many :userleagues
-  has_many :users, through: :userleagues
-  belongs_to :countries
-
+  has_many :user_leagues
+  has_many :users, through: :user_leagues
+  belongs_to :country
 end
