@@ -9,7 +9,7 @@ require_relative '../lib/command_line_interface.rb'
 require_relative '../app/models/country.rb'
 require_relative '../app/models/league.rb'
 require_relative '../app/models/user.rb'
-require_relative '../app/models/user_league.rb'
+require_relative '../app/models/userleague.rb'
 
 
 #Set Environemnt Keys

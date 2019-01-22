@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2019_01_22_104114) do
     t.integer "country_id"
   end
 
-  create_table "user_leagues", force: :cascade do |t|
+  create_table "userleagues", force: :cascade do |t|
     t.integer "user_id"
     t.integer "league_id"
   end

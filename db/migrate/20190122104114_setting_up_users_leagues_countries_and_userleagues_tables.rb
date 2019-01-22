@@ -15,7 +15,7 @@ class SettingUpUsersLeaguesCountriesAndUserleaguesTables < ActiveRecord::Migrati
       t.string :name
     end
 
-    create_table :user_leagues do |t|
+    create_table :userleagues do |t|
       t.integer :user_id
       t.integer :league_id
     end
