@@ -1,9 +1,6 @@
 #Require all external gems
-require 'require_all'
-require 'rest-client'
-require 'json'
-require 'pry'
-require 'tty-prompt'
+require 'bundler/setup'
+Bundler.require
 
 #Require all relevant internal files
 require_all 'lib'
