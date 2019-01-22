@@ -2,8 +2,9 @@
 require 'bundler/setup'
 Bundler.require
 
-#Require all relevant internal files
-require_all 'lib'
+
+require_relative '../lib/api_communicator.rb'
+require_relative '../lib/command_line_interface.rb'
 
 #Set Environemnt Keys
 PROD_KEY = "HSrTEEejMlmshr6vg2SjrZpz5Nw1p1qGN6RjsnXZ8zGR0o4j5j"
