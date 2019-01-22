@@ -4,3 +4,4 @@ source "https://rubygems.org"
 gem 'require_all'
 gem 'rest-client'
 gem 'json'
+gem 'tty-prompt'

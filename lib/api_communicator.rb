@@ -34,11 +34,26 @@ end
 
 #(5) As a Spurs fan I can see the current stats of my team for today's league
 def show_spurs_today_stats
-  response =  parse_api_request("https://api-football-v1.p.mashape.com/statistics/2/47")
+  response = parse_api_request("https://api-football-v1.p.mashape.com/statistics/2/47")
   matches = response["api"]["stats"]["matchs"]
   puts "League Wins: Home:#{matches["wins"]["home"]} Away:#{matches["wins"]["away"]} "
   puts "League Losses: Home:#{matches["loses"]["home"]} Away:#{matches["loses"]["away"]} "
   puts "League Draws: Home:#{matches["draws"]["home"]} Away:#{matches["draws"]["away"]} "
+end
+
+def get_all_availble_countries
+  response = parse_api_request("https://api-football-v1.p.mashape.com/countries")
+  countries = response["api"]["countries"]
+end
+
+def get_leagues_by_country_name_and_year(name, year="2018")
+  league_names_ids = {}
+  response = parse_api_request("https://api-football-v1.p.mashape.com/leagues/country/#{name}/#{year}")
+  leagues = response["api"]["leagues"].values
+  leagues.each do |league|
+    league_names_ids[league["league_id"]] = league["name"]
+  end
+  league_names_ids
 end
 
 def parse_api_request(url_endpoint)

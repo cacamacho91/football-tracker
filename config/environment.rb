@@ -3,6 +3,7 @@ require 'require_all'
 require 'rest-client'
 require 'json'
 require 'pry'
+require 'tty-prompt'
 
 #Require all relevant internal files
 require_all 'lib'
