@@ -49,6 +49,9 @@ end
 
 #TODO --- Write to DB
 def write_new_teams_and_leagues(league_ids, team_ids)
+  puts "current user #{$user}"
+  puts "league ids to add:"
   league_ids.each {|id| puts id}
+  puts "team ids to add:"
   team_ids.each {|id| puts id}
 end

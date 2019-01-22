@@ -47,15 +47,6 @@ def all_teams_hash_by_leagues(league_ids)
 end
 
 
-# #gets hash of all availble leagues supported by the api in format leaue_name => league_id
-# def get_availble_leagues_hash
-#   league_hash = {}
-#   response = parse_api_request("https://api-football-v1.p.mashape.com/leagues")["leagues"].values
-#   response.each { |league_data| league_hash[league_data["name"]] = league_data["league_id"] }
-#   binding.pry
-# end
-
-
 
 # #returns an league table for a given league_id
 # def show_league_standings_by_league(league_id)

@@ -5,8 +5,7 @@ def sign_in_flow
   if existing_user?(name)
     puts "we found your user #{name}"
     pass = get_pass
-
-
+    check_credentials(name, pass)
   else
     puts "user not found, creating new user with name #{name}"
     pass = set_pass
@@ -22,7 +21,7 @@ end
 
 def get_pass
   puts "Please enter your password below"
-  pass = gets.stip
+  pass = gets.strip
 end
 
 def set_pass
@@ -35,9 +34,12 @@ def existing_user?(name)
 end
 
 def check_credentials(name, pass)
+  match = User.find_by(name: name, password: pass)
   if User.find_by(name: name, password: pass)
-    return "Welcome #{name}"
+    $user = match
+    return "Welcome back #{name}"
   else
-    return ""
+    puts "Wrong password entered bye"
+    exit
   end
 end
