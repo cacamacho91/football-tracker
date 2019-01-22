@@ -19,5 +19,5 @@ TEST_KEY = "O33pXS2rCjmsha0ZVTJZXNy3yCRsp1E9gY4jsn6OleTSPGrAKn"
 
 ActiveRecord::Base.establish_connection(
   :adapter => "sqlite3",
-  :database => "db/#{ENV['SINATRA_ENV']}.sqlite"
+  :database => "db/development.sqlite"
 )
