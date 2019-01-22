@@ -41,6 +41,7 @@ GEM
     rack-protection (2.0.5)
       rack
     rake (10.4.2)
+    require_all (2.0.0)
     rest-client (2.0.2)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
@@ -85,6 +86,7 @@ DEPENDENCIES
   json
   pry
   rake
+  require_all
   rest-client
   sinatra
   sinatra-activerecord
