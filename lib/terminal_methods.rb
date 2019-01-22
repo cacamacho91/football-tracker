@@ -1,21 +1,43 @@
 ################## ONBOARDING METHODS ##################
 #== Methods used during onboarding flow for new user ==#
+def sign_in_flow
+  name = get_name
+  if existing_user?(name)
+    puts "we found your user #{name}"
+    pass = get_pass
 
-#Takes a country and returns an array of strings containing all
-#  leagues that are availble for that country add the league ID on the end
-#  a hidden id is displayed within each input to enable compatability with TTY
-def show_league_by_country(chosen_country)
-  country_leagues = get_leagues_by_country_name_and_season(chosen_country).values
-  country_leagues.map do |league|
-    hidden_id = Rainbow("##{league["league_id"]}#").black.bg(:black)
-    "#{league["name"]} #{hidden_id}"
+
+  else
+    puts "user not found, creating new user with name #{name}"
+    pass = set_pass
+    $user = User.create(name: name, password: pass)
   end
 end
 
-def show_teams_by_league(chosen_league)
-  league_teams = get_teams_by_league(chosen_league).values
-  league_teams.map do |team|
-    hidden_id = Rainbow("##{team["team_id"]}#").black.bg(:black)
-    "#{team["name"]} #{hidden_id}"
+
+def get_name
+  puts "Please enter your name below (lowercase)"
+  name = gets.strip.downcase
+end
+
+def get_pass
+  puts "Please enter your password below"
+  pass = gets.stip
+end
+
+def set_pass
+  puts "what would you like your password to be?"
+  pass = gets.strip
+end
+
+def existing_user?(name)
+  User.find_by(name: name)
+end
+
+def check_credentials(name, pass)
+  if User.find_by(name: name, password: pass)
+    return "Welcome #{name}"
+  else
+    return ""
   end
 end

@@ -1,13 +1,13 @@
 require_relative '../config/environment.rb'
 
-#gets all seasons availble in the api, returns as an array of strings
-def get_availble_seasons
-  response = parse_api_request("https://api-football-v1.p.mashape.com/seasons")["seasons"].values
-end
-
 #gets all countries availble in the api, returns an array of strings
 def get_availble_countries
   response = parse_api_request("https://api-football-v1.p.mashape.com/countries")["countries"]
+end
+
+#gets all seasons availble in the api, returns as an array of strings
+def get_availble_seasons
+  response = parse_api_request("https://api-football-v1.p.mashape.com/seasons")["seasons"].values
 end
 
 #Takes a league id and returns all teams the api supports for that league
@@ -18,8 +18,32 @@ end
 
 #Takes a country name and returns all leagues the api supports for that country
 #  returns a hash in the format league_id => league_data
-def get_leagues_by_country_name_and_season(name, year="2018")
-  response = parse_api_request("https://api-football-v1.p.mashape.com/leagues/country/#{name}/#{year}")["leagues"]
+def get_leagues_by_country_name(name)
+  response = parse_api_request("https://api-football-v1.p.mashape.com/leagues/country/#{name}")["leagues"]
+end
+
+#Creates a hash with the key as the league_id and the value as the league name
+#  The country the league belongs to has been added due to multiple leagues
+#  having the same name
+def all_leagues_hash(season="2018")
+  leagues = {}
+  response = parse_api_request("https://api-football-v1.p.mashape.com/leagues/season/#{season}")["leagues"].values
+  response.each do |league_data|
+    leagues[league_data["league_id"]] = "#{league_data["country"]} - #{league_data["name"]}"
+  end
+  leagues
+end
+
+#Creates a hash with the key as the team_id and the value as the team name
+#  Only includes teams from an array of provided leagues
+def all_teams_hash_by_leagues(league_ids)
+  teams = {}
+  league_ids.each do |league_id|
+    teams_in_league = parse_api_request("https://api-football-v1.p.mashape.com/teams/league/#{league_id}")["teams"]
+    teams_in_league.each {|team_data|
+      teams[team_data[1]["team_id"]] = team_data[1]["name"]}
+  end
+  teams
 end
 
 
