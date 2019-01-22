@@ -1,17 +1,18 @@
 #!/usr/bin/env ruby
 require_relative '../config/environment.rb'
 
-welcome
+prompt = TTY::Prompt.new
 
-# prompt = TTY::Prompt.new
-# name = prompt.ask('What is your name?', default: ENV['USER'])
-# puts "Hi #{name}, time to set up your favourite football teams "
-# countries = get_all_availble_countries
-#
-# chosen_country = prompt.select("Choose your country?", countries.values)
-#
-# leagues = get_leagues_by_country_name_and_year(chosen_country)
-# chosen_leagues = prompt.multi_select("Great choice, which league(s) in #{chosen_country} would you like to follow? (you can select multiple using the space bar)", leagues.values)
-#
-#
-# prompt.yes?("You have selected #{chosen_leagues}, from #{chosen_country}, are you happy with this?")
+welcome_text
+
+#####IF USER NOT RECOGNISED BEGIN WELCOME FLOW####
+pick_country_text
+chosen_country = prompt.select("Choose your country?", get_availble_countries.values)
+
+pick_league_text
+chosen_league = prompt.select("Which league from that counties would you like to follow?", show_league_by_country(chosen_country))
+
+pick_teams_text
+chosen_teams = prompt.multi_select("Which team from that league would you like to support?",show_teams_by_league(chosen_league.split('#')[1]))
+
+puts chosen_teams
