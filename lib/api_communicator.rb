@@ -1,41 +1,53 @@
 require_relative '../config/environment.rb'
 
-#(1) As a football fan I can see the current league table for the English Premier League
-def show_prem_league_table
-  response =  parse_api_request("https://api-football-v1.p.mashape.com/standings/37")
-  table = response["api"]["standings"]
+#gets all seasons availble in the api, returns as an array of strings
+def get_availble_seasons
+  response = parse_api_request("https://api-football-v1.p.mashape.com/seasons")
+  response["seasons"].values
+end
+
+#returns a league table for a given league_id
+def show_league_standings_by_league(league_id)
+  response =  parse_api_request("https://api-football-v1.p.mashape.com/standings/#{league_id}")
+  table = response["standings"]
   table.each do |rank, team_data|
     puts "#{rank}. #{team_data["teamName"]} | #{team_data["play"]} | #{team_data["win"]} | #{team_data["draw"]} | #{team_data["lose"]} | #{team_data["points"]}   "
   end
 end
 
-#(2) As a football fan I can see all the fixtures for the English Premier League for today
-def show_spurs_fixtures_2019
-  response = parse_api_request("https://api-football-v1.p.mashape.com/fixtures/team/47")
-  fixtures = response["api"]["fixtures"]
+#show fixtures for a given team and year, some years although valid by API have no matches
+def show_team_fixtures_by_year(team_id, year="2019")
+  return "Year not valid, must be one of: #{get_availble_seasons}" if !get_availble_seasons.include?(year)
+  response = parse_api_request("https://api-football-v1.p.mashape.com/fixtures/team/#{team_id}")
+  fixtures = response["fixtures"]
+  matches = 0
   fixtures.each do |id, fixture|
-    puts "#{fixture["event_date"][0..9]} #{fixture["homeTeam"]} vs #{fixture["awayTeam"]} " if fixture["event_date"].include?("2019")
+    if fixture["event_date"].include?(year)
+      puts "#{fixture["event_date"][0..9]} #{fixture["homeTeam"]} vs #{fixture["awayTeam"]} "
+      matches += 1
+    end
   end
+  "#{matches} found"
 end
 
-#(3) As a football fan I want to see all of the current teams in the English Premier League for the current season
-def show_all_prem_teams
-  response =  parse_api_request("https://api-football-v1.p.mashape.com/teams/league/2")
-  teams = response["api"]["teams"].map {|team| team[1]["name"]}
+#Show all teams by league_id
+def show_all_teams_by_league(league_id)
+  response =  parse_api_request("https://api-football-v1.p.mashape.com/teams/league/#{league_id}")
+  teams = response["teams"].map {|team| team[1]["name"]}
   puts teams.sort
 end
 
-#(4) As a Spurs fan I can find out who all of our players this season are
-def show_spurs_players
-  response =  parse_api_request("https://api-football-v1.p.mashape.com/players/2018/47")
-  players = response["api"]["players"]
+#Show all players by team id
+def show_players_by_team(team_id)
+  response =  parse_api_request("https://api-football-v1.p.mashape.com/players/2018/#{team_id}")
+  players = response["players"]
   players.each  {|player| puts player["player"]}
 end
 
-#(5) As a Spurs fan I can see the current stats of my team for today's league
-def show_spurs_today_stats
-  response = parse_api_request("https://api-football-v1.p.mashape.com/statistics/2/47")
-  matches = response["api"]["stats"]["matchs"]
+#show a teams statistics for a given team / league
+def show_team_stats_by_team_and_league(league_id, team_id)
+  response = parse_api_request("https://api-football-v1.p.mashape.com/statistics/#{league_id}/#{team_id}")
+  matches = response["stats"]["matchs"]
   puts "League Wins: Home:#{matches["wins"]["home"]} Away:#{matches["wins"]["away"]} "
   puts "League Losses: Home:#{matches["loses"]["home"]} Away:#{matches["loses"]["away"]} "
   puts "League Draws: Home:#{matches["draws"]["home"]} Away:#{matches["draws"]["away"]} "
@@ -43,13 +55,13 @@ end
 
 def get_all_availble_countries
   response = parse_api_request("https://api-football-v1.p.mashape.com/countries")
-  countries = response["api"]["countries"]
+  countries = response["countries"]
 end
 
 def get_leagues_by_country_name_and_year(name, year="2018")
   league_names_ids = {}
   response = parse_api_request("https://api-football-v1.p.mashape.com/leagues/country/#{name}/#{year}")
-  leagues = response["api"]["leagues"].values
+  leagues = response["leagues"].values
   leagues.each do |league|
     league_names_ids[league["league_id"]] = league["name"]
   end
@@ -63,5 +75,5 @@ def parse_api_request(url_endpoint)
    :headers => {"X-Mashape-Key" => TEST_KEY,
    "Accept" => "application/json"
   })
-  response_hash = JSON.parse(response)
+  response_hash = JSON.parse(response)["api"]
 end
