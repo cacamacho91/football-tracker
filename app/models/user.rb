@@ -29,6 +29,6 @@ class User < ActiveRecord::Base
   all_users = self.leagues.map {|league| league.users}.flatten.uniq.drop(1)
   all_users_array = all_users.collect{|user| user.leagues}.flatten
   end
-  
+
   #class end
 end
