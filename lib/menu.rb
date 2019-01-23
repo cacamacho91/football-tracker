@@ -1,146 +1,154 @@
-### Controls all menus in the system ###
-
-#####  MENUS  ####
-## The menus are created here
-
-#Main Menu with top level options
-def main_menu
-  prompt = TTY::Prompt.new
-  options = [
-    "⚽ My Teams",
-    "🥇 My Leagues",
-    "📊 Statistics",
-    "❌ Quit",
-  ]
-  main_menu_router(prompt.select("Pick an option \n\n", options))
-end
-
-##TODO - replace with proper calls to get the users teams
-# The my teams menu
-def my_teams_menu
-  prompt = TTY::Prompt.new
-  options = ["👈 Go Back",
-    "Show fixtures for my teams this year",
-    "Show all current players for my teams"]
-  my_teams_router(prompt.select("Pick an option \n\n", options))
-end
-
-##TODO - replace with proper calls to get the users leagues
-# The my leagues menu
-def my_leagues_menu
-  prompt = TTY::Prompt.new
-  options = [
-    "👈 Go Back",
-    "Show current table(s) for all my leagues"]
-  my_leagues_router(prompt.select("Pick an option \n\n", options))
-end
-
-# The stats menu
-def stats_menu
-  prompt = TTY::Prompt.new
-  options = [
-    "👈 Go Back",
-    "Show all users who support at least 1 team the same as me",
-    "Show all users who follow at least 1 league the same as me",
-    "Show the user that supports the most teams",
-    "Show the user that supports the most leagues",
-    "Show the team with the most supporters",
-    "Show the team with the least supporters",
-    "Show the league with the most followers",
-    "Show the league with the least followers",
-    "Suggest teams I may like",
-    "Suggest leagues I may like",
-  ]
-  my_stats_router(prompt.select("Pick an option \n\n", options))
-end
-
-#####  ROUTING  ####
-## The routing for every menu is controlled here
-
-# The routing for the main menu
-def main_menu_router(option_selected)
-  case option_selected
-    when "⚽ My Teams"
-      my_teams_menu
-    when "🥇 My Leagues"
-      my_leagues_menu
-    when "📊 Statistics"
-      stats_menu
-    when "❌ Quit"
-      puts "Thanks for stopping by!"
-      exit
-    else
-      puts "UNKNOWN INPUT!!!!"
+### Class to support all menus and routing in the system ###
+class Menu
+  #Create user menu
+  def self.create_user_menu
+    prompt = TTY::Prompt.new
+    options = [Copy.create_user_yes, Copy.create_user_no]
+    self.create_user_router(prompt.select(Copy.create_user_prompt, options))
   end
-end
 
-# The routing for my teams
-def my_teams_router(option_selected)
-  case option_selected
-    when "👈 Go Back"
-      main_menu
-    when "Show fixtures for my teams this year"
-      $user.teams.each{ |team| show_team_fixtures_by_year(team.api_team_id) }
-      my_teams_menu
-    when "Show all current players for my teams"
-      $user.teams.each{ |team| show_players_by_team(team.api_team_id) }
-      my_teams_menu
-    else
-      puts "UNKNOWN INPUT!!!!"
-      my_teams_menu
+  #Main Menu with top level options
+  def self.main_menu
+    prompt = TTY::Prompt.new
+    options = [Copy.menu_myteams, Copy.menu_myleagues, Copy.menu_mystats, Copy.menu_quit]
+    self.main_menu_router(prompt.select(Copy.option_prompt, options))
   end
-end
 
-# The routing for my leagues
-def my_leagues_router(option_selected)
-  case option_selected
-    when "👈 Go Back"
-      main_menu
-    when "Show current table(s) for all my leagues"
-      $user.leagues.each{ |league| show_league_standings_by_league(league.api_league_id) }
-      main_menu
-    else
-      puts "UNKNOWN INPUT!!!!"
-      my_leagues_menu
+  # The my teams menu
+  def self.my_teams_menu
+    prompt = TTY::Prompt.new
+    options = [Copy.menu_back, Copy.team_menu_fixture_year, Copy.team_menu_current_players]
+    self.my_teams_router(prompt.select(Copy.option_prompt, options))
   end
-end
 
-# The routing for my stats (yikes refactor this later)
-def my_stats_router(option_selected)
-  case option_selected
-    when "👈 Go Back"
-      main_menu
-    when "Show all users who support at least 1 team the same as me"
-      puts $user.find_users_that_support_my_teams
-      stats_menu
-    when "Show all users who follow at least 1 league the same as me"
-      puts $user.find_users_that_support_my_leagues
-      stats_menu
-    when "Show the user that supports the most teams"
-      puts user_who_supports_most_teams
-      stats_menu
-    when "Show the user that supports the most leagues"
-      puts user_who_supports_most_leagues
-      stats_menu
-    when "Show the team with the most supporters"
-      puts team_with_most_followers
-      stats_menu
-    when "Show the team with the least supporters"
-      puts team_with_least_followers
-      stats_menu
-    when "Show the league with the most followers"
-      puts league_with_most_followers
-      stats_menu
-    when "Show the league with the least followers"
-      puts league_with_least_followers
-      stats_menu
-    when "Suggest teams I may like"
-      puts $user.suggest_teams
-      stats_menu
-    when "Suggest leagues I may like"
-      puts $user.suggest_leagues
-      stats_menu
-    else
-      puts "UNKNOWN INPUT!!!!"
+  # The my leagues menu
+  def self.my_leagues_menu
+    prompt = TTY::Prompt.new
+    options = [Copy.menu_back, Copy.league_menu_tables]
+    self.my_leagues_router(prompt.select(Copy.option_prompt, options))
+  end
+
+  # The stats menu
+  def self.stats_menu
+    prompt = TTY::Prompt.new
+    options = [Copy.menu_back,
+      Copy.stats_menu_same_users_team,
+      Copy.stats_menu_same_users_league,
+      Copy.stats_menu_most_teams,
+      Copy.stats_menu_most_leagues,
+      Copy.stats_menu_most_support,
+      Copy.stats_menu_least_support,
+      Copy.stats_menu_most_follows,
+      Copy.stats_menu_least_follows,
+      Copy.stats_menu_suggest_teams,
+      Copy.stats_menu_same_users]
+    self.my_stats_router(prompt.select(Copy.option_prompt, options))
+  end
+
+  #####  ROUTING  ####
+  ## The routing for every menu is controlled below
+
+  #The routing for create user menus
+  def self.create_user_router(option_selected)
+    case option_selected
+    when Copy.create_user_yes
+        create_new_user
+      when Copy.create_user_no
+        puts Copy.goodbye
+        exit
+      else
+        puts Copy.unknown_input
+        self.create_user_menu
+    end
+  end
+
+  # The routing for the main menu
+  def self.main_menu_router(option_selected)
+    case option_selected
+    when Copy.menu_myteams
+        self.my_teams_menu
+      when Copy.menu_myleagues
+        self.my_leagues_menu
+      when Copy.menu_mystats
+        self.stats_menu
+      when Copy.menu_quit
+        puts Copy.goodbye
+        exit
+      else
+        puts Copy.unknown_input
+        self.main_menu
+    end
+  end
+
+  # The routing for my teams
+  def self.my_teams_router(option_selected)
+    case option_selected
+      when Copy.menu_back
+        self.main_menu
+      when Copy.team_menu_fixture_year
+        $user.teams.each{ |team| show_team_fixtures_by_year(team.api_team_id) }
+        self.my_teams_menu
+      when Copy.team_menu_current_players
+        $user.teams.each{ |team| show_players_by_team(team.api_team_id) }
+        self.my_teams_menu
+      else
+        puts Copy.unknown_input
+        self.my_teams_menu
+    end
+  end
+
+  # The routing for my leagues
+  def self.my_leagues_router(option_selected)
+    case option_selected
+      when Copy.menu_back
+        self.main_menu
+      when Copy.league_menu_tables
+        $user.leagues.each{ |league| show_league_standings_by_league(league.api_league_id) }
+        self.main_menu
+      else
+        puts Copy.unknown_input
+        self.my_leagues_menu
+    end
+  end
+
+  # The routing for my stats (yikes refactor this later)
+  def self.my_stats_router(option_selected)
+    case option_selected
+      when Copy.menu_back
+        self.main_menu
+      when Copy.stats_menu_same_users_team
+        puts $user.find_users_that_support_my_teams
+        self.stats_menu
+      when Copy.stats_menu_same_users_league
+        puts $user.find_users_that_support_my_leagues
+        self.stats_menu
+      when Copy.stats_menu_most_teams
+        puts user_who_supports_most_teams
+        self.stats_menu
+      when Copy.stats_menu_most_leagues
+        puts user_who_supports_most_leagues
+        self.stats_menu
+      when Copy.stats_menu_most_support
+        puts team_with_most_followers
+        self.stats_menu
+      when Copy.stats_menu_least_support
+        puts team_with_least_followers
+        self.stats_menu
+      when Copy.stats_menu_most_follows
+        puts league_with_most_followers
+        self.stats_menu
+      when Copy.stats_menu_least_follows
+        puts league_with_least_followers
+        self.stats_menu
+      when Copy.stats_menu_suggest_teams
+        puts $user.suggest_teams
+        self.stats_menu
+      when Copy.stats_menu_same_users
+        puts $user.suggest_leagues
+        self.stats_menu
+      else
+        puts Copy.unknown_input
+        self.stats_menu
+    end
   end
 end

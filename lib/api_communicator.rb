@@ -16,12 +16,6 @@ def get_teams_by_league(league_id)
   response =  parse_api_request("https://api-football-v1.p.mashape.com/teams/league/#{league_id}")["teams"]
 end
 
-#Takes a country name and returns all leagues the api supports for that country
-#  returns a hash in the format league_id => league_data
-def get_leagues_by_country_name(name)
-  response = parse_api_request("https://api-football-v1.p.mashape.com/leagues/country/#{name}")["leagues"]
-end
-
 #Creates a hash with the key as the league_id and the value as the league name
 #  The country the league belongs to has been added due to multiple leagues
 #  having the same name
@@ -46,11 +40,12 @@ def all_teams_hash_by_leagues(league_ids)
   teams
 end
 
-
+#returns a team name when given a team_id
 def get_team_name_by_id(team_id)
   response = parse_api_request("https://api-football-v1.p.mashape.com/teams/team/#{team_id}")["teams"].values.first["name"]
 end
 
+#returns a league name when given a league_id
 def get_league_name_by_id(league_id)
   response = parse_api_request("GEThttps://api-football-v1.p.mashape.com/leagues/league/#{league_id}")["leagues"].values.first["name"]
 end
@@ -98,3 +93,11 @@ def parse_api_request(url_endpoint)
   })
   response_hash = JSON.parse(response)["api"]
 end
+
+###ATTIC -- REMOVE AFTER FINAL TESTING!!!
+
+# #Takes a country name and returns all leagues the api supports for that country
+# #  returns a hash in the format league_id => league_data
+# def get_leagues_by_country_name(name)
+#   response = parse_api_request("https://api-football-v1.p.mashape.com/leagues/country/#{name}")["leagues"]
+# end
