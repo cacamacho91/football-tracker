@@ -47,53 +47,46 @@ def all_teams_hash_by_leagues(league_ids)
 end
 
 
+def get_team_name_by_id(team_id)
+  response = parse_api_request("https://api-football-v1.p.mashape.com/teams/team/#{team_id}")["teams"].values.first["name"]
+end
 
-# #returns an league table for a given league_id
-# def show_league_standings_by_league(league_id)
-#   response =  parse_api_request("https://api-football-v1.p.mashape.com/standings/#{league_id}")
-#   table = response["standings"]
-#   table.each do |rank, team_data|
-#     puts "#{rank}. #{team_data["teamName"]} | #{team_data["play"]} | #{team_data["win"]} | #{team_data["draw"]} | #{team_data["lose"]} | #{team_data["points"]}   "
-#   end
-# end
-#
-# #show fixtures for a given team and year, some years although valid by API have no matches
-# def show_team_fixtures_by_year(team_id, year="2019")
-#   return "Year not valid, must be one of: #{get_availble_seasons}" if !get_availble_seasons.include?(year)
-#   response = parse_api_request("https://api-football-v1.p.mashape.com/fixtures/team/#{team_id}")
-#   fixtures = response["fixtures"]
-#   matches = 0
-#   fixtures.each do |id, fixture|
-#     if fixture["event_date"].include?(year)
-#       puts "#{fixture["event_date"][0..9]} #{fixture["homeTeam"]} vs #{fixture["awayTeam"]} "
-#       matches += 1
-#     end
-#   end
-#   "#{matches} found"
-# end
-#
-#
-#
-# #Show all players by team id
-# def show_players_by_team(team_id)
-#   response =  parse_api_request("https://api-football-v1.p.mashape.com/players/2018/#{team_id}")
-#   players = response["players"]
-#   players.each  {|player| puts player["player"]}
-# end
-#
-# #show a teams statistics for a given team / league
-# def show_team_stats_by_team_and_league(league_id, team_id)
-#   response = parse_api_request("https://api-football-v1.p.mashape.com/statistics/#{league_id}/#{team_id}")
-#   matches = response["stats"]["matchs"]
-#   puts "League Wins: Home:#{matches["wins"]["home"]} Away:#{matches["wins"]["away"]} "
-#   puts "League Losses: Home:#{matches["loses"]["home"]} Away:#{matches["loses"]["away"]} "
-#   puts "League Draws: Home:#{matches["draws"]["home"]} Away:#{matches["draws"]["away"]} "
-# end
-#
-# #todo
-# def get_teams_by_league_id(league_id)
-#
-# end
+def get_league_name_by_id(league_id)
+  response = parse_api_request("GEThttps://api-football-v1.p.mashape.com/leagues/league/#{league_id}")["leagues"].values.first["name"]
+end
+
+#returns an league table for a given league_id
+def show_league_standings_by_league(league_id)
+  response =  parse_api_request("https://api-football-v1.p.mashape.com/standings/#{league_id}")
+  table = response["standings"]
+  table.each do |rank, team_data|
+    puts "#{rank}. #{team_data["teamName"]} | #{team_data["play"]} | #{team_data["win"]} | #{team_data["draw"]} | #{team_data["lose"]} | #{team_data["points"]}   "
+  end
+end
+
+
+#show fixtures for a given team and year, some years although valid by API have no matches
+def show_team_fixtures_by_year(team_id, year="2019")
+  return "Year not valid, must be one of: #{get_availble_seasons}" if !get_availble_seasons.include?(year)
+  response = parse_api_request("https://api-football-v1.p.mashape.com/fixtures/team/#{team_id}")
+  fixtures = response["fixtures"]
+  matches = 0
+  fixtures.each do |id, fixture|
+    if fixture["event_date"].include?(year)
+      puts "#{fixture["event_date"][0..9]} #{fixture["homeTeam"]} vs #{fixture["awayTeam"]} "
+      matches += 1
+    end
+  end
+  "#{matches} found"
+end
+
+#Show all players by team id
+def show_players_by_team(team_id)
+  response =  parse_api_request("https://api-football-v1.p.mashape.com/players/2018/#{team_id}")
+  players = response["players"]
+  players.each  {|player| puts player["player"]}
+end
+
 
 #Helper method to call api with given endpoint and TEST keys and parse result
 def parse_api_request(url_endpoint)

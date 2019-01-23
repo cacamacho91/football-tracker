@@ -19,12 +19,9 @@ end
 # The my teams menu
 def my_teams_menu
   prompt = TTY::Prompt.new
-  options = [
-    "👈 Go Back",
-    "Tottenham (HARDCODED TEST DATA)",
-    "Manchester United (HARDCODED TEST DATA)",
-    "Real Madrid (HARDCODED TEST DATA)",
-  ]
+  options = ["👈 Go Back",
+    "Show fixtures for my teams this year",
+    "Show all current players for my teams"]
   my_teams_router(prompt.select("Pick an option \n\n", options))
 end
 
@@ -34,10 +31,7 @@ def my_leagues_menu
   prompt = TTY::Prompt.new
   options = [
     "👈 Go Back",
-    "PREMIER LEAGUE (HARDCODED TEST DATA)",
-    "LA LIGA (HARDCODED TEST DATA)",
-    "WORLD CUP (HARDCODED TEST DATA)",
-  ]
+    "Show current table(s) for all my leagues"]
   my_leagues_router(prompt.select("Pick an option \n\n", options))
 end
 
@@ -85,8 +79,14 @@ def my_teams_router(option_selected)
   case option_selected
     when "👈 Go Back"
       main_menu
+    when "Show fixtures for my teams this year"
+      $user.teams.each{ |team| show_team_fixtures_by_year(team.api_team_id) }
+      my_teams_menu
+    when "Show all current players for my teams"
+      $user.teams.each{ |team| show_players_by_team(team.api_team_id) }
+      my_teams_menu
     else
-      puts "They want to see a team specific menu for #{option_selected}"
+      puts "UNKNOWN INPUT!!!!"
       my_teams_menu
   end
 end
@@ -96,8 +96,11 @@ def my_leagues_router(option_selected)
   case option_selected
     when "👈 Go Back"
       main_menu
+    when "Show current table(s) for all my leagues"
+      $user.leagues.each{ |league| show_league_standings_by_league(league.api_league_id) }
+      main_menu
     else
-      puts "They want to see a league specific menu for #{option_selected}"
+      puts "UNKNOWN INPUT!!!!"
       my_leagues_menu
   end
 end
@@ -108,34 +111,34 @@ def my_stats_router(option_selected)
     when "👈 Go Back"
       main_menu
     when "Show all users who support at least 1 team the same as me"
-      puts "Run PARIK METHOD"
+      puts $user.find_users_that_support_my_teams
       stats_menu
     when "Show all users who follow at least 1 league the same as me"
-      puts "Run PARIK METHOD"
+      puts $user.find_users_that_support_my_leagues
       stats_menu
     when "Show the user that supports the most teams"
-      puts "Run PARIK METHOD"
+      puts user_who_supports_most_teams
       stats_menu
     when "Show the user that supports the most leagues"
-      puts "Run PARIK METHOD"
+      puts user_who_supports_most_leagues
       stats_menu
     when "Show the team with the most supporters"
-      puts "Run PARIK METHOD"
+      puts team_with_most_followers
       stats_menu
     when "Show the team with the least supporters"
-      puts "Run PARIK METHOD"
+      puts team_with_least_followers
       stats_menu
     when "Show the league with the most followers"
-      puts "Run PARIK METHOD"
+      puts league_with_most_followers
       stats_menu
     when "Show the league with the least followers"
-      puts "Run PARIK METHOD"
+      puts league_with_least_followers
       stats_menu
     when "Suggest teams I may like"
-      puts "Run PARIK METHOD"
+      puts $user.suggest_teams
       stats_menu
     when "Suggest leagues I may like"
-      puts "Run PARIK METHOD"
+      puts $user.suggest_leagues
       stats_menu
     else
       puts "UNKNOWN INPUT!!!!"
