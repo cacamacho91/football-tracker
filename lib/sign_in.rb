@@ -1,5 +1,5 @@
-################## ONBOARDING METHODS ##################
-#== Methods used during onboarding flow for new user ==#
+################## SIGN IN METHODS ##################
+#==  Methods used during sign in / login flow     ==#
 def sign_in_flow
   name = get_name
   if existing_user?(name)
