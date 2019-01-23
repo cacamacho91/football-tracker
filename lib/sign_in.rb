@@ -15,8 +15,8 @@ end
 
 
 def get_name
-  puts "Please enter your name below (lowercase)"
-  name = gets.strip.downcase
+  puts "Please enter your name below"
+  name = gets.strip
 end
 
 def get_pass

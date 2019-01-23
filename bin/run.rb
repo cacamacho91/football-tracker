@@ -3,8 +3,7 @@ require_relative '../config/environment.rb'
 
 welcome_text
 
-main_menu
+sign_in_flow
+subscribe_flow
 
-# sign_in_flow
-#
-# subscribe_flow
+main_menu

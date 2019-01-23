@@ -2,12 +2,11 @@
 require 'bundler/setup'
 Bundler.require
 
-#turn off logging in console to aviod ruining user experience
-ActiveRecord::Base.logger.level = 1
-
 require_all 'lib/'
 require_all 'app/'
 
+#turn off logging in console to aviod ruining user experience
+ActiveRecord::Base.logger = nil
 
 #Set Environemnt Keys
 PROD_KEY = "HSrTEEejMlmshr6vg2SjrZpz5Nw1p1qGN6RjsnXZ8zGR0o4j5j"
