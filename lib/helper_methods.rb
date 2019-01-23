@@ -1,3 +1,10 @@
+#### ALL Methods to help support other areas of the app
+
+#takes a hash of fixtures and returns all of those that are this year
+def this_years_fixtures(fixture_hash)
+  current_year = Time.new.year.to_s
+  fixture_hash.select {|id, fixture_data| fixture_data["event_date"][0..3] == current_year}
+end
 
 # THESE ARE ALL THE STATISTICS METHODS
 def user_who_supports_most_teams

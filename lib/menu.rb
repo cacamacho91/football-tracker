@@ -52,7 +52,7 @@ class Menu
   def self.create_user_router(option_selected)
     case option_selected
     when Copy.create_user_yes
-        create_new_user
+        SignIn.create_new_user
       when Copy.create_user_no
         puts Copy.goodbye
         exit
@@ -86,10 +86,12 @@ class Menu
       when Copy.menu_back
         self.main_menu
       when Copy.team_menu_fixture_year
-        $user.teams.each{ |team| show_team_fixtures_by_year(team.api_team_id) }
+        $user.teams.each{ |team| puts Copy.future_team_fixtures(this_years_fixtures(get_team_fixtures(team.api_team_id))) }
         self.my_teams_menu
       when Copy.team_menu_current_players
-        $user.teams.each{ |team| show_players_by_team(team.api_team_id) }
+        $user.teams.each do |team|
+          Copy.team_players(get_players_by_team(team.api_team_id)).each {|player| puts player}
+        end
         self.my_teams_menu
       else
         puts Copy.unknown_input
@@ -103,7 +105,7 @@ class Menu
       when Copy.menu_back
         self.main_menu
       when Copy.league_menu_tables
-        $user.leagues.each{ |league| show_league_standings_by_league(league.api_league_id) }
+        $user.leagues.each{ |league| puts Copy.league_standings(get_league_standings_by_league(league.api_league_id)) }
         self.main_menu
       else
         puts Copy.unknown_input

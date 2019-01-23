@@ -98,4 +98,27 @@ class Copy
   def self.stats_menu_same_users
     "Suggest leagues I may like"
   end
+  #takes a league hash and returns a beautiful league table
+  def self.league_standings(league_hash)
+    rows = []
+    league_hash.each do |rank, team_data|
+      rows << [rank, team_data["teamName"], team_data["play"], team_data["win"], team_data["draw"], team_data["lose"],
+               team_data["goalsFor"], team_data["goalsAgainst"], team_data["goalsDiff"], team_data["points"]]
+    end
+    Terminal::Table.new :title => "League Standings", :headings => ["#", "Team", "P", "W", "D", "L", "Gs", "Ga", "G+/-", "Pts"], :rows => rows
+  end
+
+  #takes a teams set of fixtures in the future and returns a beautiful table to display
+  def self.future_team_fixtures(fixture_hash)
+     rows = []
+     fixture_hash.each do |id, fixture_data|
+       rows << [fixture_data["event_date"][0..9], fixture_data["round"], fixture_data["homeTeam"], fixture_data["awayTeam"]]
+     end
+     Terminal::Table.new :title => "Fixtures", :headings => ["Date", "Competition / Round", "Home Team", "AwayTeam"], :rows => rows
+  end
+
+  def self.team_players(players)
+    players.map{ |player| player["player"] }
+  end
+
 end

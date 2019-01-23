@@ -47,39 +47,22 @@ end
 
 #returns a league name when given a league_id
 def get_league_name_by_id(league_id)
-  response = parse_api_request("GEThttps://api-football-v1.p.mashape.com/leagues/league/#{league_id}")["leagues"].values.first["name"]
+  response = parse_api_request("https://api-football-v1.p.mashape.com/leagues/league/#{league_id}")["leagues"].values.first["name"]
 end
 
 #returns an league table for a given league_id
-def show_league_standings_by_league(league_id)
-  response =  parse_api_request("https://api-football-v1.p.mashape.com/standings/#{league_id}")
-  table = response["standings"]
-  table.each do |rank, team_data|
-    puts "#{rank}. #{team_data["teamName"]} | #{team_data["play"]} | #{team_data["win"]} | #{team_data["draw"]} | #{team_data["lose"]} | #{team_data["points"]}   "
-  end
+def get_league_standings_by_league(league_id)
+  response =  parse_api_request("https://api-football-v1.p.mashape.com/standings/#{league_id}")["standings"]
 end
 
-
-#show fixtures for a given team and year, some years although valid by API have no matches
-def show_team_fixtures_by_year(team_id, year="2019")
-  return "Year not valid, must be one of: #{get_availble_seasons}" if !get_availble_seasons.include?(year)
-  response = parse_api_request("https://api-football-v1.p.mashape.com/fixtures/team/#{team_id}")
-  fixtures = response["fixtures"]
-  matches = 0
-  fixtures.each do |id, fixture|
-    if fixture["event_date"].include?(year)
-      puts "#{fixture["event_date"][0..9]} #{fixture["homeTeam"]} vs #{fixture["awayTeam"]} "
-      matches += 1
-    end
-  end
-  "#{matches} found"
+#show all fixtures for a given team
+def get_team_fixtures(team_id)
+  response = parse_api_request("https://api-football-v1.p.mashape.com/fixtures/team/#{team_id}")["fixtures"]
 end
 
 #Show all players by team id
-def show_players_by_team(team_id)
-  response =  parse_api_request("https://api-football-v1.p.mashape.com/players/2018/#{team_id}")
-  players = response["players"]
-  players.each  {|player| puts player["player"]}
+def get_players_by_team(team_id)
+  response =  parse_api_request("https://api-football-v1.p.mashape.com/players/2018/#{team_id}")["players"]
 end
 
 
@@ -93,11 +76,3 @@ def parse_api_request(url_endpoint)
   })
   response_hash = JSON.parse(response)["api"]
 end
-
-###ATTIC -- REMOVE AFTER FINAL TESTING!!!
-
-# #Takes a country name and returns all leagues the api supports for that country
-# #  returns a hash in the format league_id => league_data
-# def get_leagues_by_country_name(name)
-#   response = parse_api_request("https://api-football-v1.p.mashape.com/leagues/country/#{name}")["leagues"]
-# end
