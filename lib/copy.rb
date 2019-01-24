@@ -31,6 +31,8 @@ class Copy
   def self.wait_long
     sleep(4)
   end
+
+
   def self.header
     system "clear"
     header = Artii::Base.new :font => 'slant'
@@ -53,7 +55,7 @@ class Copy
     Rainbow("⛔ Error: User name in use, try a different name").red
   end
   def self.get_name
-    "What's Your Name? : "
+    "What's Your Name?:"
   end
   def self.get_pass
     "What is your password?"
@@ -68,16 +70,13 @@ class Copy
     "Let's Add Your Favorite Teams and Leagues!"
   end
   def self.bad_password
-    Rainbow("⛔ Error: Password incorrect, select forgot password if you need a reminder!").red
+    Rainbow("⛔ Error: Password incorrect").red
   end
   def self.menu_login
     "🔑 Login"
   end
   def self.menu_signup
     "📝 Sign-Up"
-  end
-  def self.menu_forgotpass
-    "🤔 Forgot Password"
   end
   def self.menu_myteams
     "⚽ My Teams"
@@ -159,6 +158,7 @@ class Copy
     players.map{ |player| player["player"] }
   end
 
+  #Takes a hash of fixtures in the past and returns a beautiful table to display with a Live Score
   def self.started_fixtures(fixture_hash)
     rows = []
     fixture_hash.each do |id, fixture_data|
@@ -169,6 +169,7 @@ class Copy
     Terminal::Table.new :title => "Live Matches", :headings => ["Time (Local)", "Home", "Away", "Live Score"], :rows => rows
   end
 
+  #Takes a to 10 hash and displays in a Leaderboard
   def self.top_10_leaderboard(top_10_hash, name="Leaderboard", value="#")
     rows = []
     top_10_hash.each { |name, score| rows << [name, score] }

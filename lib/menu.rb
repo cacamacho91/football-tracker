@@ -3,7 +3,7 @@ class Menu
   #Login Menu
   def self.login_menu
     prompt = TTY::Prompt.new
-    options = [Copy.menu_login, Copy.menu_signup, Copy.menu_forgotpass, Copy.menu_quit]
+    options = [Copy.menu_login, Copy.menu_signup, Copy.menu_quit]
     self.login_router(prompt.select(Copy.option_prompt, options))
   end
 
@@ -72,8 +72,6 @@ class Menu
       SignIn.sign_in_flow
     when Copy.menu_signup
       SignIn.create_new_user
-    when Copy.menu_forgotpass
-      puts "USER FORGOT PASS"
     when Copy.menu_quit
       system "clear"
       puts Copy.goodbye
