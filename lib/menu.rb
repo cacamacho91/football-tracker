@@ -42,7 +42,11 @@ class Menu
       Copy.stats_menu_most_follows,
       Copy.stats_menu_least_follows,
       Copy.stats_menu_suggest_teams,
-      Copy.stats_menu_same_users]
+      Copy.stats_menu_same_users,
+      Copy.stats_menu_tfteams,
+      Copy.stats_menu_tfleagues,
+      Copy.stats_menu_ttfollowers,
+      Copy.stats_menu_ttsupporters]
     self.my_stats_router(prompt.select(Copy.option_prompt, options))
   end
 
@@ -87,7 +91,7 @@ class Menu
       when Copy.menu_back
         self.main_menu
       when Copy.team_menu_fixture_year
-        $user.teams.each{ |team| puts Copy.future_team_fixtures(this_years_fixtures(get_team_fixtures(team.api_team_id))) }
+        $user.teams.each{ |team| puts Copy.future_fixtures(this_years_fixtures(get_team_fixtures(team.api_team_id))) }
         self.my_teams_menu
       when Copy.team_menu_current_players
         $user.teams.each do |team|
@@ -148,6 +152,18 @@ class Menu
         self.stats_menu
       when Copy.stats_menu_same_users
         puts $user.suggest_leagues
+        self.stats_menu
+      when Copy.stats_menu_tfteams
+        top_5_teams.each {|team| puts team}
+        self.stats_menu
+      when Copy.stats_menu_tfleagues
+        top_5_leagues.each {|league| puts league}
+        self.stats_menu
+      when Copy.stats_menu_ttfollowers
+        puts Copy.top_10_leaderboard(top_10_followers, "Top Followers", "# Leagues Followed")
+        self.stats_menu
+      when Copy.stats_menu_ttsupporters
+        puts puts Copy.top_10_leaderboard(top_10_fans, "Top Fans", "# Clubs Supported")
         self.stats_menu
       else
         puts Copy.unknown_input

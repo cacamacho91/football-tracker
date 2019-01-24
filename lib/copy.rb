@@ -115,6 +115,19 @@ class Copy
   def self.stats_menu_same_users
     "Suggest leagues I may like"
   end
+  def self.stats_menu_tfteams
+    "Show 5 most supported teams"
+  end
+  def self.stats_menu_tfleagues
+    "Show 5 most supported leagues"
+  end
+  def self.stats_menu_ttfollowers
+    "Who follows the most leagues?"
+  end
+  def self.stats_menu_ttsupporters
+    "Who follows the most teams?"
+  end
+
   #takes a league hash and returns a beautiful league table
   def self.league_standings(league_hash)
     rows = []
@@ -125,8 +138,8 @@ class Copy
     Terminal::Table.new :title => "League Standings", :headings => ["#", "Team", "P", "W", "D", "L", "Gs", "Ga", "G+/-", "Pts"], :rows => rows
   end
 
-  #takes a teams set of fixtures in the future and returns a beautiful table to display
-  def self.future_team_fixtures(fixture_hash)
+  #takes a set of fixtures in the future and returns a beautiful table to display
+  def self.future_fixtures(fixture_hash)
      rows = []
      fixture_hash.each do |id, fixture_data|
        rows << [fixture_data["event_date"][0..9], fixture_data["round"], fixture_data["homeTeam"], fixture_data["awayTeam"]]
@@ -136,6 +149,21 @@ class Copy
 
   def self.team_players(players)
     players.map{ |player| player["player"] }
+  end
+
+  def self.started_fixtures(fixture_hash)
+    rows = []
+    fixture_hash.each do |id, fixture_data|
+      rows << [fixture_data["event_timestamp"][0..3].insert(2, ":"), fixture_data["homeTeam"],
+      fixture_data["awayTeam"], "#{fixture_data["goalsHomeTeam"]} - #{fixture_data["goalsAwayTeam"]}"]
+    end
+    Terminal::Table.new :title => "Live Matches", :headings => ["Time (Local)", "Home", "Away", "Live Score"], :rows => rows
+  end
+
+  def self.top_10_leaderboard(top_10_hash, name="Leaderboard", value="#")
+    rows = []
+    top_10_hash.each { |name, score| rows << [name, score] }
+    Terminal::Table.new :title => name, :headings => ["User", value], :rows => rows
   end
 
 end
