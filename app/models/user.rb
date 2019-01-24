@@ -5,20 +5,17 @@ class User < ActiveRecord::Base
   has_many :teams, through: :user_teams
 
   # USER METHODS
-
   def find_users_that_support_my_teams
     array = self.teams.collect{|team| team.id}
     all_users = array.map {|team_id| Team.find(team_id).users}.flatten
-    all_users.uniq.drop(1)
-    all_users.map{|user| user.name}
+    all_users.map{|user| user.name}.uniq.drop(1)
   end
 
 
   def find_users_that_support_my_leagues
     array = self.leagues.collect{|league| league.id}
     all_users = array.map {|league_id| League.find(league_id).users}.flatten
-    all_users.uniq.drop(1)
-    all_users.map{|user| user.name}
+    all_users.map{|user| user.name}.uniq.drop(1)
   end
 
   def suggest_teams
