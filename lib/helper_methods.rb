@@ -25,7 +25,7 @@ def team_with_most_followers
   array = UserTeam.all.collect{|user| user.team_id}
   most_common_value = array.uniq.max_by{ |i| array.count( i ) }
   team = Team.find(most_common_value)
-  team.api_team_id
+  api_id = team.api_team_id
 end
 
 def team_with_least_followers
