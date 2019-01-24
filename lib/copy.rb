@@ -31,22 +31,26 @@ class Copy
   def self.wait_long
     sleep(4)
   end
-  def self.welcome
+  def self.header
     system "clear"
-    a = Artii::Base.new :font => 'slant'
-    a.asciify('Welcome to the Football App!')
+    header = Artii::Base.new :font => 'slant'
+    header.asciify('Global Football Tracker!')
+  end
+  def self.sub_header
+    puts"-------------------------------------------------------------------------------------------------------------------------"
+    puts"Keep track of all events in the beautiful game, with live data from 1000's of clubs, over 300+ leagues across 40+ nations!"
+    puts"Made with 💙 by Chris and Parik"
+    puts"-------------------------------------------------------------------------------------------------------------------------"
   end
   def self.goodbye
-    "Thanks for stopping by!"
-  end
-  def self.user_found(name)
-    "Welcome back #{name}"
+    bye = Artii::Base.new :font => 'slant'
+    bye.asciify('Thanks for stopping by!')
   end
   def self.user_not_found
-    "You Don't Seem To Be From Around Here!"
+    Rainbow("⛔ Error: User not found, check your spelling & case").red
   end
-  def self.create_user_prompt
-    "Would you like to create a new user?"
+  def self.user_existing_error
+    Rainbow("⛔ Error: User name in use, try a different name").red
   end
   def self.get_name
     "What's Your Name? : "
@@ -57,12 +61,6 @@ class Copy
   def self.set_pass
     "Choose a password"
   end
-  def self.create_user_yes
-    "Yes - I love the beautiful game"
-  end
-  def self.create_user_no
-    "No - I am a heathen"
-  end
   def self.unknown_input
     "I don't understand what you just picked, this is awkward..."
   end
@@ -70,7 +68,16 @@ class Copy
     "Let's Add Your Favorite Teams and Leagues!"
   end
   def self.bad_password
-    "Password incorrect, Try Again!"
+    Rainbow("⛔ Error: Password incorrect, select forgot password if you need a reminder!").red
+  end
+  def self.menu_login
+    "🔑 Login"
+  end
+  def self.menu_signup
+    "📝 Sign-Up"
+  end
+  def self.menu_forgotpass
+    "🤔 Forgot Password"
   end
   def self.menu_myteams
     "⚽ My Teams"

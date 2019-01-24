@@ -1,21 +1,24 @@
 ### Class to support all menus and routing in the system ###
 class Menu
-  #Create user menu
-  def self.create_user_menu
+  #Login Menu
+  def self.login_menu
     prompt = TTY::Prompt.new
-    options = [Copy.create_user_yes, Copy.create_user_no]
-    self.create_user_router(prompt.select(Copy.create_user_prompt, options))
+    options = [Copy.menu_login, Copy.menu_signup, Copy.menu_forgotpass, Copy.menu_quit]
+    self.login_router(prompt.select(Copy.option_prompt, options))
   end
 
   #Continue Menu
   def self.continue_menu
     prompt = TTY::Prompt.new
+    puts ""
     prompt.keypress("Press SPACE or ENTER to continue / see next >>", keys: [:space, :return])
   end
 
   #Main Menu with top level options
   def self.main_menu
     system "clear"
+    puts Copy.header
+    puts Copy.sub_header
     prompt = TTY::Prompt.new
     options = [Copy.menu_myteams, Copy.menu_myleagues, Copy.menu_mystats, Copy.menu_showlive, Copy.menu_quit]
     self.main_menu_router(prompt.select(Copy.option_prompt, options, per_page: 25))
@@ -24,6 +27,8 @@ class Menu
   # The my teams menu
   def self.my_teams_menu
     system "clear"
+    puts Copy.header
+    puts Copy.sub_header
     prompt = TTY::Prompt.new
     options = [Copy.menu_back, Copy.team_menu_fixture_year, Copy.team_menu_current_players]
     self.my_teams_router(prompt.select(Copy.option_prompt, options, per_page: 25))
@@ -32,6 +37,8 @@ class Menu
   # The my leagues menu
   def self.my_leagues_menu
     system "clear"
+    puts Copy.header
+    puts Copy.sub_header
     prompt = TTY::Prompt.new
     options = [Copy.menu_back, Copy.league_menu_tables]
     self.my_leagues_router(prompt.select(Copy.option_prompt, options, per_page: 25))
@@ -40,6 +47,8 @@ class Menu
   # The stats menu
   def self.stats_menu
     system "clear"
+    puts Copy.header
+    puts Copy.sub_header
     prompt = TTY::Prompt.new
     options = [Copy.menu_back,
       Copy.stats_menu_same_users_team,
@@ -56,20 +65,26 @@ class Menu
   #####  ROUTING  ####
   ## The routing for every menu is controlled below
 
-  #The routing for create user menus
-  def self.create_user_router(option_selected)
+  #The initial routing on app load
+  def self.login_router(option_selected)
     case option_selected
-    when Copy.create_user_yes
-        SignIn.create_new_user
-      when Copy.create_user_no
-        puts Copy.goodbye
-        exit
-      else
-        puts Copy.unknown_input
-        self.continue_menu
-        self.create_user_menu
+    when Copy.menu_login
+      SignIn.sign_in_flow
+    when Copy.menu_signup
+      SignIn.create_new_user
+    when Copy.menu_forgotpass
+      puts "USER FORGOT PASS"
+    when Copy.menu_quit
+      system "clear"
+      puts Copy.goodbye
+      exit
+    else
+      puts Copy.unknown_input
+      self.continue_menu
+      self.login_menu
     end
   end
+
 
   # The routing for the main menu
   def self.main_menu_router(option_selected)
@@ -85,6 +100,7 @@ class Menu
         self.continue_menu
         self.main_menu
       when Copy.menu_quit
+        system "clear"
         puts Copy.goodbye
         exit
       else
