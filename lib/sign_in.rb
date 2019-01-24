@@ -15,9 +15,15 @@ class SignIn
     puts Copy.sub_header
     puts Copy.get_name
     name = self.get_stripped_input
+
     if User.existing_user?(name)
-      puts Copy.get_pass
-      pass = self.get_stripped_input
+      system "clear"
+      puts Copy.header
+      puts Copy.sub_header
+      puts "✅ User found \n\n"
+      prompt = TTY::Prompt.new
+      footy = prompt.decorate('⚽')
+      pass = prompt.mask('Enter your password:', mask: footy)
       check_credentials(name, pass)
     else
       puts Copy.user_not_found
@@ -36,8 +42,9 @@ class SignIn
       Copy.wait_short
       self.login_flow
     else
-      puts Copy.set_pass
-      pass = get_stripped_input
+      prompt = TTY::Prompt.new
+      footy = prompt.decorate('⚽')
+      pass = prompt.mask('Set your password:', mask: footy)
       $user = User.create(name: name, password: pass)
       self.app_start
     end

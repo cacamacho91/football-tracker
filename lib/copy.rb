@@ -3,9 +3,10 @@
 class Copy
   #Prompts user to search for leaues they want to follow
   def self.search_league_text
-    puts "\n\n   Which leagues do you follow?  "
-    puts "--------------------------------------------\n\n"
-    puts Rainbow("Find your favorite league or search by their names").red
+    puts "\n   Which leagues do you follow?  "
+    puts Rainbow("You MUST select at least 1 league!").red
+    puts "--------------------------------------------\n"
+    puts "Find your favorite league or search by their names"
     puts Rainbow("You can search by country or league name!!").red
     puts ""
     puts Rainbow("Confirm with enter when you are done!").green
@@ -13,13 +14,14 @@ class Copy
 
   #Prompts user to search for leaues they want to follow
   def self.search_team_text
-    puts "\n\n  What teams do you support?  "
-    puts "--------------------------------------------\n\n"
+    puts "\n  What teams do you support?  "
+    puts Rainbow("You MUST select at least 1 team!").red
+    puts "--------------------------------------------\n"
     puts "Add all the teams you support below, we have limited the selection to the"
     puts "leagues that you are following!"
     puts ""
-    puts Rainbow("Find your favorite team or search by their names").red
-    #puts Rainbow("You can search by team name!!").red
+    puts "Find your favorite team or search by their names"
+    puts Rainbow("You can search by team name!!").red
     puts ""
     puts Rainbow("Confirm with enter when you are done!").green
   end
@@ -31,8 +33,11 @@ class Copy
   def self.wait_long
     sleep(4)
   end
-
-
+  def self.print_header
+    system "clear"
+    puts self.header
+    puts self.sub_header
+  end
   def self.header
     system "clear"
     header = Artii::Base.new :font => 'slant'
