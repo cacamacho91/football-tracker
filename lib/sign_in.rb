@@ -4,6 +4,8 @@
 class SignIn
   #Controls the flow of the sign in process
   def self.sign_in_flow
+    puts Copy.welcome
+    Copy.wait_short
     puts Copy.get_name
     name = self.get_stripped_input
     if User.existing_user?(name)
@@ -31,6 +33,7 @@ class SignIn
   #  If the user has no teams or leagues set up provide the welcome flow
   def self.app_start
     if $user.teams == [] && $user.leagues == []
+      Copy.clear_console
       puts Copy.no_teams_or_leagues
       subscribe_flow
     else

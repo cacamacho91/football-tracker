@@ -9,6 +9,7 @@ class Menu
 
   #Main Menu with top level options
   def self.main_menu
+    Copy.clear_console
     prompt = TTY::Prompt.new
     options = [Copy.menu_myteams, Copy.menu_myleagues, Copy.menu_mystats, Copy.menu_quit]
     self.main_menu_router(prompt.select(Copy.option_prompt, options))

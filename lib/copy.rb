@@ -2,8 +2,25 @@
 #  and convinience
 class Copy
   #Sign in flow copy
+
+  # Pause for shorter
+  def self.wait_short
+    sleep(2)
+  end
+
+  # Pause for longer
+  def self.wait_long
+    sleep(4)
+  end
+
+  def self.clear_console
+    system "clear"
+  end
+
   def self.welcome
-    "Welcome to the Football - Tracker CLI APP!\n\n"
+    system "clear"
+    a = Artii::Base.new :font => 'slant'
+    a.asciify('Welcome to the Football App!')
   end
   def self.goodbye
     "Thanks for stopping by!"
@@ -12,13 +29,13 @@ class Copy
     "Welcome back #{name}"
   end
   def self.user_not_found
-    "User not found!"
+    "You Don't Seem To Be From Around Here!"
   end
   def self.create_user_prompt
     "Would you like to create a new user?"
   end
   def self.get_name
-    "What is your name?"
+    "What's Your Name? : "
   end
   def self.get_pass
     "What is your password?"
@@ -33,16 +50,16 @@ class Copy
     "No - I am a heathen"
   end
   def self.unknown_input
-    "I don't understand what you just picked, this is akward..."
+    "I don't understand what you just picked, this is awkward..."
   end
   def self.no_teams_or_leagues
-    "Looks like you don't have any teams or leagues set up, time to get to it!"
+    "Let's Add Your Favorite Teams and Leagues!"
   end
   def self.bad_password
     "Password incorrect, Try Again!"
   end
   def self.menu_myteams
-    "⚽ My Teams"
+    "⚽  My Teams"
   end
   def self.menu_myleagues
     "🥇 My Leagues"
