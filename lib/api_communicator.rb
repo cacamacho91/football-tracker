@@ -60,10 +60,24 @@ def get_team_fixtures(team_id)
   response = parse_api_request("https://api-football-v1.p.mashape.com/fixtures/team/#{team_id}")["fixtures"]
 end
 
+#gets all fixtures for a league
+def get_league_fixtures(league_id)
+  fixtures = parse_api_request("https://api-football-v1.p.mashape.com/fixtures/league/#{league_id}")["fixtures"]
+end
+
+#returns all live fixtures
+def get_live_fixtures
+  fixtures = parse_api_request("https://api-football-v1.p.mashape.com/fixtures/live")["fixtures"]
+end
+
 #Show all players by team id
 def get_players_by_team(team_id)
   response =  parse_api_request("https://api-football-v1.p.mashape.com/players/2018/#{team_id}")["players"]
 end
+
+
+
+
 
 
 #Helper method to call api with given endpoint and TEST keys and parse result
