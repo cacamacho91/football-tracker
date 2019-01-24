@@ -167,11 +167,10 @@ class Copy
   def self.started_fixtures(fixture_hash)
     rows = []
     fixture_hash.each do |id, fixture_data|
-      rows << [fixture_data["event_timestamp"][0..3].insert(2, ":"), fixture_data["homeTeam"],
-      fixture_data["awayTeam"], "#{fixture_data["goalsHomeTeam"]} - #{fixture_data["goalsAwayTeam"]}"]
+      rows << [fixture_data["homeTeam"], fixture_data["awayTeam"], "#{fixture_data["goalsHomeTeam"]} - #{fixture_data["goalsAwayTeam"]}"]
     end
     return "No Fixtures Found" if rows == []
-    Terminal::Table.new :title => "Live Matches", :headings => ["Time (Local)", "Home", "Away", "Live Score"], :rows => rows
+    Terminal::Table.new :title => "Live Matches", :headings => ["Home", "Away", "Live Score"], :rows => rows 
   end
 
   #Takes a to 10 hash and displays in a Leaderboard
