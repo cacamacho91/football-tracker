@@ -1,22 +1,36 @@
 #Class which returns all copy used in the app for consistancy, clenliness
 #  and convinience
 class Copy
-  #Sign in flow copy
+  #Prompts user to search for leaues they want to follow
+  def self.search_league_text
+    puts "\n\n   Which leagues do you follow?  "
+    puts "--------------------------------------------\n\n"
+    puts Rainbow("Find your favorite league or search by their names").red
+    puts Rainbow("You can search by country or league name!!").red
+    puts ""
+    puts Rainbow("Confirm with enter when you are done!").green
+  end
 
+  #Prompts user to search for leaues they want to follow
+  def self.search_team_text
+    puts "\n\n  What teams do you support?  "
+    puts "--------------------------------------------\n\n"
+    puts "Add all the teams you support below, we have limited the selection to the"
+    puts "leagues that you are following!"
+    puts ""
+    puts Rainbow("Find your favorite team or search by their names").red
+    #puts Rainbow("You can search by team name!!").red
+    puts ""
+    puts Rainbow("Confirm with enter when you are done!").green
+  end
   # Pause for shorter
   def self.wait_short
     sleep(2)
   end
-
   # Pause for longer
   def self.wait_long
     sleep(4)
   end
-
-  def self.clear_console
-    system "clear"
-  end
-
   def self.welcome
     system "clear"
     a = Artii::Base.new :font => 'slant'
@@ -59,13 +73,16 @@ class Copy
     "Password incorrect, Try Again!"
   end
   def self.menu_myteams
-    "⚽  My Teams"
+    "⚽ My Teams"
   end
   def self.menu_myleagues
     "🥇 My Leagues"
   end
   def self.menu_mystats
     "📊 Statistics"
+  end
+  def self.menu_showlive
+    "🕒 Show LIVE fixtures & scores"
   end
   def self.menu_quit
     "❌ Quit"
@@ -90,24 +107,6 @@ class Copy
   end
   def self.stats_menu_same_users_league
     "Show all users who follow at least 1 league the same as me"
-  end
-  def self.stats_menu_most_teams
-    "Show the user that supports the most teams"
-  end
-  def self.stats_menu_most_leagues
-    "Show the user that supports the most leagues"
-  end
-  def self.stats_menu_most_support
-    "Show the team with the most supporters"
-  end
-  def self.stats_menu_least_support
-    "Show the team with the most supporters"
-  end
-  def self.stats_menu_most_follows
-    "Show the league with the most followers"
-  end
-  def self.stats_menu_least_follows
-    "Show the league with the least followers"
   end
   def self.stats_menu_suggest_teams
     "Suggest teams I may like"
@@ -135,6 +134,7 @@ class Copy
       rows << [rank, team_data["teamName"], team_data["play"], team_data["win"], team_data["draw"], team_data["lose"],
                team_data["goalsFor"], team_data["goalsAgainst"], team_data["goalsDiff"], team_data["points"]]
     end
+    return "No Leagues Found" if rows == []
     Terminal::Table.new :title => "League Standings", :headings => ["#", "Team", "P", "W", "D", "L", "Gs", "Ga", "G+/-", "Pts"], :rows => rows
   end
 
@@ -144,6 +144,7 @@ class Copy
      fixture_hash.each do |id, fixture_data|
        rows << [fixture_data["event_date"][0..9], fixture_data["round"], fixture_data["homeTeam"], fixture_data["awayTeam"]]
      end
+     return "No Fixtures Found" if rows == []
      Terminal::Table.new :title => "Fixtures", :headings => ["Date", "Competition / Round", "Home Team", "AwayTeam"], :rows => rows
   end
 
@@ -157,12 +158,14 @@ class Copy
       rows << [fixture_data["event_timestamp"][0..3].insert(2, ":"), fixture_data["homeTeam"],
       fixture_data["awayTeam"], "#{fixture_data["goalsHomeTeam"]} - #{fixture_data["goalsAwayTeam"]}"]
     end
+    return "No Fixtures Found" if rows == []
     Terminal::Table.new :title => "Live Matches", :headings => ["Time (Local)", "Home", "Away", "Live Score"], :rows => rows
   end
 
   def self.top_10_leaderboard(top_10_hash, name="Leaderboard", value="#")
     rows = []
     top_10_hash.each { |name, score| rows << [name, score] }
+    return "No Data Found" if rows == []
     Terminal::Table.new :title => name, :headings => ["User", value], :rows => rows
   end
 

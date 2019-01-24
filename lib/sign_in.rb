@@ -33,7 +33,7 @@ class SignIn
   #  If the user has no teams or leagues set up provide the welcome flow
   def self.app_start
     if $user.teams == [] && $user.leagues == []
-      Copy.clear_console
+      system "clear"
       puts Copy.no_teams_or_leagues
       subscribe_flow
     else
