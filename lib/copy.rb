@@ -104,14 +104,23 @@ class Copy
   def self.menu_back
     "👈 Go Back"
   end
+  def self.show_teams
+    "Show teams I follow"
+  end
   def self.team_menu_fixture_year
     "Show fixtures for my teams this year"
   end
   def self.team_menu_current_players
     "Show all current players for my teams"
   end
+  def self.show_leagues
+    "Show leagues I follow"
+  end
   def self.league_menu_tables
     "Show current table(s) for all my leagues"
+  end
+  def self.league_menu_fixtures
+    "Show this years fixtures for all my leagues"
   end
   def self.stats_menu_same_users_team
     "Show all users who support at least 1 team the same as me"
@@ -170,7 +179,7 @@ class Copy
       rows << [fixture_data["homeTeam"], fixture_data["awayTeam"], "#{fixture_data["goalsHomeTeam"]} - #{fixture_data["goalsAwayTeam"]}"]
     end
     return "No Fixtures Found" if rows == []
-    Terminal::Table.new :title => "Live Matches", :headings => ["Home", "Away", "Live Score"], :rows => rows 
+    Terminal::Table.new :title => "Live Matches", :headings => ["Home", "Away", "Live Score"], :rows => rows
   end
 
   #Takes a to 10 hash and displays in a Leaderboard

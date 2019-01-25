@@ -26,7 +26,7 @@ class Menu
   def self.my_teams_menu
     Copy.print_header
     prompt = TTY::Prompt.new
-    options = [Copy.menu_back, Copy.team_menu_fixture_year, Copy.team_menu_current_players]
+    options = [Copy.menu_back, Copy.show_teams, Copy.team_menu_fixture_year, Copy.team_menu_current_players]
     self.my_teams_router(prompt.select(Copy.option_prompt, options, per_page: 25))
   end
 
@@ -34,7 +34,7 @@ class Menu
   def self.my_leagues_menu
     Copy.print_header
     prompt = TTY::Prompt.new
-    options = [Copy.menu_back, Copy.league_menu_tables]
+    options = [Copy.menu_back, Copy.show_leagues, Copy.league_menu_tables, Copy.league_menu_fixtures]
     self.my_leagues_router(prompt.select(Copy.option_prompt, options, per_page: 25))
   end
 
@@ -105,6 +105,10 @@ class Menu
     case option_selected
       when Copy.menu_back
         self.main_menu
+      when Copy.show_teams
+        $user.teams.each { |team| puts get_team_name_by_id(team.api_team_id) }
+        continue_menu
+        my_teams_menu
       when Copy.team_menu_fixture_year
         $user.teams.each do |team|
           Copy.print_header
@@ -131,13 +135,24 @@ class Menu
     case option_selected
       when Copy.menu_back
         self.main_menu
+      when Copy.show_leagues
+        $user.leagues.each { |league| puts get_league_name_by_id(league.api_league_id) }
+        continue_menu
+        self.my_leagues_menu
       when Copy.league_menu_tables
         $user.leagues.each do |league|
           Copy.print_header
           puts Copy.league_standings(get_league_standings_by_league(league.api_league_id))
           continue_menu
         end
-        self.main_menu
+        self.my_leagues_menu
+      when Copy.league_menu_fixtures
+        $user.leagues.each do |league|
+          Copy.print_header
+          puts Copy.future_fixtures(this_years_fixtures(get_league_fixtures(league.api_league_id)))
+          continue_menu
+        end
+        self.my_leagues_menu
       else
         puts Copy.unknown_input
         self.continue_menu
