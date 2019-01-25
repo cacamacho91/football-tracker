@@ -10,7 +10,7 @@ A CLI football application for all global football lovers who want keep up to da
 - Ascii football animation on load
 - Navigate with arrow key menus not flags or text inputs
 - Support for over 300 leagues in 40 countries and 1000's of clubs
-- Men and Women football data
+- Male and Female football data
 
 ## Motivation
 A project as part of the Flatiron immersive web bootcamp, as a football fan I know how difficult it can be to keep track
@@ -26,7 +26,7 @@ Build Stable
 <b>Built with</b>
 - Ruby
 - Active Record
-- 15 public ruby gems (ckeck ~/Gemfile)
+- 15 public ruby gems (check ~/Gemfile)
 
 ## Installation
 1. Git clone the project
@@ -35,7 +35,7 @@ Build Stable
 ```
 ruby bin/run.rb
 ```
-4. Enjoy the awesomeness
+4. Enjoy the app
 
 ## API's Used
 [API-Football](https://www.api-football.com/)
