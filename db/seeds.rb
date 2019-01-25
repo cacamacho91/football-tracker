@@ -53,6 +53,14 @@ League.create(api_league_id: 171, country_id: 10)
 League.create(api_league_id: 18, country_id: 14)
 # Bundesliga
 League.create(api_league_id: 8, country_id: 5)
+## Premier League England
+League.create(api_league_id: 2, country_id: 9)
+## England Championship
+League.create(api_league_id: 2, country_id: 9)
+## France Ligue 1
+League.create(api_league_id: 4, country_id: 10)
+## 2018 Russia World Cup
+League.create(api_league_id: 1, country_id: 22)
 
 
 Team.create(api_team_id: 44)
@@ -97,3 +105,155 @@ Team.create(api_team_id: 113)
 Team.create(api_team_id: 105)
 Team.create(api_team_id: 111)
 Team.create(api_team_id: 112)
+
+
+
+
+
+
+## UserTeam.all SEED DATA ##
+UserTeam.create(user_id: 1, team_id: 2)
+UserTeam.create(user_id: 1, team_id: 3)
+UserTeam.create(user_id: 1, team_id: 7)
+UserTeam.create(user_id: 1, team_id: 12)
+UserTeam.create(user_id: 1, team_id: 18)
+UserTeam.create(user_id: 1, team_id: 25)
+UserTeam.create(user_id: 2, team_id: 1)
+UserTeam.create(user_id: 2, team_id: 4)
+UserTeam.create(user_id: 2, team_id: 6)
+UserTeam.create(user_id: 2, team_id: 1)
+UserTeam.create(user_id: 2, team_id: 45)
+UserTeam.create(user_id: 2, team_id: 56)
+UserTeam.create(user_id: 2, team_id: 70)
+
+UserTeam.create(user_id: 3, team_id: 2)
+UserTeam.create(user_id: 3, team_id: 6)
+UserTeam.create(user_id: 3, team_id: 7)
+UserTeam.create(user_id: 3, team_id: 20)
+UserTeam.create(user_id: 3, team_id: 25)
+UserTeam.create(user_id: 3, team_id: 36)
+UserTeam.create(user_id: 3, team_id: 60)
+
+UserTeam.create(user_id: 4, team_id: 4)
+UserTeam.create(user_id: 4, team_id: 2)
+UserTeam.create(user_id: 4, team_id: 7)
+UserTeam.create(user_id: 4, team_id: 5)
+UserTeam.create(user_id: 4, team_id: 23)
+UserTeam.create(user_id: 4, team_id: 64)
+UserTeam.create(user_id: 4, team_id: 21)
+
+
+UserTeam.create(user_id: 5, team_id: 4)
+UserTeam.create(user_id: 5, team_id: 12)
+UserTeam.create(user_id: 5, team_id: 32)
+UserTeam.create(user_id: 5, team_id: 43)
+UserTeam.create(user_id: 5, team_id: 25)
+UserTeam.create(user_id: 5, team_id: 55)
+UserTeam.create(user_id: 5, team_id: 72)
+
+UserTeam.create(user_id: 6, team_id: 1)
+UserTeam.create(user_id: 6, team_id: 4)
+UserTeam.create(user_id: 6, team_id: 6)
+UserTeam.create(user_id: 6, team_id: 1)
+UserTeam.create(user_id: 6, team_id: 45)
+UserTeam.create(user_id: 6, team_id: 56)
+UserTeam.create(user_id: 6, team_id: 70)
+
+
+UserTeam.create(user_id: 7, team_id: 5)
+UserTeam.create(user_id: 7, team_id: 12)
+UserTeam.create(user_id: 7, team_id: 25)
+UserTeam.create(user_id: 7, team_id: 36)
+UserTeam.create(user_id: 7, team_id: 45)
+UserTeam.create(user_id: 7, team_id: 43)
+UserTeam.create(user_id: 7, team_id: 69)
+
+UserTeam.create(user_id: 8, team_id: 2)
+UserTeam.create(user_id: 8, team_id: 3)
+UserTeam.create(user_id: 8, team_id: 7)
+UserTeam.create(user_id: 8, team_id: 12)
+UserTeam.create(user_id: 8, team_id: 18)
+UserTeam.create(user_id: 8, team_id: 25)
+UserTeam.create(user_id: 8, team_id: 1)
+UserTeam.create(user_id: 8, team_id: 4)
+UserTeam.create(user_id: 8, team_id: 6)
+UserTeam.create(user_id: 8, team_id: 1)
+UserTeam.create(user_id: 8, team_id: 45)
+UserTeam.create(user_id: 8, team_id: 56)
+UserTeam.create(user_id: 8, team_id: 70)
+
+
+
+UserTeam.create(user_id: 9, team_id: 2)
+UserTeam.create(user_id: 9, team_id: 4)
+UserTeam.create(user_id: 9, team_id: 9)
+UserTeam.create(user_id: 9, team_id: 11)
+UserTeam.create(user_id: 9, team_id: 14)
+UserTeam.create(user_id: 9, team_id: 21)
+UserTeam.create(user_id: 9, team_id: 5)
+UserTeam.create(user_id: 9, team_id: 7)
+UserTeam.create(user_id: 9, team_id: 1)
+UserTeam.create(user_id: 9, team_id: 23)
+UserTeam.create(user_id: 9, team_id: 46)
+UserTeam.create(user_id: 9, team_id: 53)
+UserTeam.create(user_id: 9, team_id: 68)
+
+
+UserTeam.create(user_id: 10, team_id: 2)
+UserTeam.create(user_id: 10, team_id: 3)
+UserTeam.create(user_id: 10, team_id: 7)
+UserTeam.create(user_id: 10, team_id: 12)
+UserTeam.create(user_id: 10, team_id: 18)
+UserTeam.create(user_id: 10, team_id: 25)
+UserTeam.create(user_id: 10, team_id: 1)
+UserTeam.create(user_id: 10, team_id: 4)
+UserTeam.create(user_id: 10, team_id: 6)
+UserTeam.create(user_id: 10, team_id: 1)
+UserTeam.create(user_id: 10, team_id: 45)
+UserTeam.create(user_id: 10, team_id: 56)
+UserTeam.create(user_id: 10, team_id: 70)
+## UserTeam.all SEED DATA ##
+
+
+
+
+
+
+## UserLeague.all SEED DATA ##
+UserLeague.create(user_id: 1, league_id: 2)
+UserLeague.create(user_id: 1, league_id: 5)
+UserLeague.create(user_id: 1, league_id: 3)
+UserLeague.create(user_id: 1, league_id: 7)
+UserLeague.create(user_id: 1, league_id: 12)
+
+UserLeague.create(user_id: 2, league_id: 1)
+UserLeague.create(user_id: 2, league_id: 2)
+UserLeague.create(user_id: 2, league_id: 5)
+
+UserLeague.create(user_id: 3, league_id: 2)
+UserLeague.create(user_id: 3, league_id: 3)
+UserLeague.create(user_id: 3, league_id: 7)
+
+UserLeague.create(user_id: 11, league_id: 2)
+UserLeague.create(user_id: 11, league_id: 5)
+UserLeague.create(user_id: 11, league_id: 12)
+
+UserLeague.create(user_id: 12, league_id: 2)
+UserLeague.create(user_id: 12, league_id: 5)
+UserLeague.create(user_id: 12, league_id: 12)
+
+UserLeague.create(user_id: 13, league_id: 4)
+UserLeague.create(user_id: 13, league_id: 6)
+UserLeague.create(user_id: 13, league_id: 8)
+
+UserLeague.create(user_id: 14, league_id: 1)
+UserLeague.create(user_id: 14, league_id: 8)
+UserLeague.create(user_id: 14, league_id: 2)
+
+UserLeague.create(user_id: 15, league_id: 3)
+UserLeague.create(user_id: 15, league_id: 6)
+UserLeague.create(user_id: 15, league_id: 7)
+
+UserLeague.create(user_id: 12, league_id: 2)
+UserLeague.create(user_id: 12, league_id: 5)
+UserLeague.create(user_id: 12, league_id: 12)

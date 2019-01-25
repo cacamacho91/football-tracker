@@ -4,6 +4,7 @@
 class SignIn
   #Main login flow on app load
   def self.login_flow
+    system "clear"
     puts Copy.header
     puts Copy.sub_header
     Menu.login_menu
@@ -38,7 +39,9 @@ class SignIn
     else
       puts Copy.set_pass
       pass = get_stripped_input
-      $user = User.create(name: name, password: pass)
+      puts Copy.show_number
+      mobile_number = get_stripped_input
+      $user = User.create(name: name, password: pass, mobile_number: mobile_number)
       self.app_start
     end
   end
@@ -76,4 +79,29 @@ class SignIn
       self.login_flow
     end
   end
+
+  def self.send_text(user)
+    puts "Thank You, Your Password Has Been Sent To The Mobile Number You Have Provided...."
+    ENV["NUMBER"] = user.mobile_number
+    ENV["PASS"] = user.password
+    #fork {exec 'ruby ../football-tracker/text_user.rb'}
+    system("ruby ../football-tracker/text_user.rb")
+  end
+
+  def self.forgot_password
+    puts Copy.get_name
+    name = self.get_stripped_input
+    match = User.all.find_by(name: name.to_s)
+    if match
+    password = match.password
+    self.send_text(match)
+    system "clear"
+    self.login_flow
+  else
+    puts Copy.user_not_found
+    self.login_flow
+  end
+end
+
+  # class end
 end

@@ -73,7 +73,7 @@ class Menu
     when Copy.menu_signup
       SignIn.create_new_user
     when Copy.menu_forgotpass
-      puts "USER FORGOT PASS"
+      SignIn.forgot_password
     when Copy.menu_quit
       system "clear"
       puts Copy.goodbye

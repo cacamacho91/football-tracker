@@ -14,3 +14,4 @@ gem 'rake'
 gem 'rainbow'
 gem 'terminal-table'
 gem 'artii'
+gem "twilio-ruby"

@@ -55,6 +55,10 @@ class Copy
   def self.get_name
     "What's Your Name? : "
   end
+
+  def self.show_number
+    "What's Your Number? :"
+  end
   def self.get_pass
     "What is your password?"
   end
