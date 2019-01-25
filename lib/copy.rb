@@ -3,9 +3,10 @@
 class Copy
   #Prompts user to search for leaues they want to follow
   def self.search_league_text
-    puts "\n\n   Which leagues do you follow?  "
-    puts "--------------------------------------------\n\n"
-    puts Rainbow("Find your favorite league or search by their names").red
+    puts "\n   Which leagues do you follow?  "
+    puts Rainbow("You MUST select at least 1 league!").red
+    puts "--------------------------------------------\n"
+    puts "Find your favorite league or search by their names"
     puts Rainbow("You can search by country or league name!!").red
     puts ""
     puts Rainbow("Confirm with enter when you are done!").green
@@ -13,13 +14,14 @@ class Copy
 
   #Prompts user to search for leaues they want to follow
   def self.search_team_text
-    puts "\n\n  What teams do you support?  "
-    puts "--------------------------------------------\n\n"
+    puts "\n  What teams do you support?  "
+    puts Rainbow("You MUST select at least 1 team!").red
+    puts "--------------------------------------------\n"
     puts "Add all the teams you support below, we have limited the selection to the"
     puts "leagues that you are following!"
     puts ""
-    puts Rainbow("Find your favorite team or search by their names").red
-    #puts Rainbow("You can search by team name!!").red
+    puts "Find your favorite team or search by their names"
+    puts Rainbow("You can search by team name!!").red
     puts ""
     puts Rainbow("Confirm with enter when you are done!").green
   end
@@ -30,6 +32,11 @@ class Copy
   # Pause for longer
   def self.wait_long
     sleep(4)
+  end
+  def self.print_header
+    system "clear"
+    puts self.header
+    puts self.sub_header
   end
   def self.header
     system "clear"
@@ -53,7 +60,7 @@ class Copy
     Rainbow("⛔ Error: User name in use, try a different name").red
   end
   def self.get_name
-    "What's Your Name? : "
+    "What's Your Name?:"
   end
 
   def self.show_number
@@ -72,7 +79,7 @@ class Copy
     "Let's Add Your Favorite Teams and Leagues!"
   end
   def self.bad_password
-    Rainbow("⛔ Error: Password incorrect, select forgot password if you need a reminder!").red
+    Rainbow("⛔ Error: Password incorrect").red
   end
   def self.menu_login
     "🔑 Login"
@@ -104,14 +111,23 @@ class Copy
   def self.menu_back
     "👈 Go Back"
   end
+  def self.show_teams
+    "Show teams I follow"
+  end
   def self.team_menu_fixture_year
     "Show fixtures for my teams this year"
   end
   def self.team_menu_current_players
     "Show all current players for my teams"
   end
+  def self.show_leagues
+    "Show leagues I follow"
+  end
   def self.league_menu_tables
     "Show current table(s) for all my leagues"
+  end
+  def self.league_menu_fixtures
+    "Show this years fixtures for all my leagues"
   end
   def self.stats_menu_same_users_team
     "Show all users who support at least 1 team the same as me"
@@ -163,16 +179,17 @@ class Copy
     players.map{ |player| player["player"] }
   end
 
+  #Takes a hash of fixtures in the past and returns a beautiful table to display with a Live Score
   def self.started_fixtures(fixture_hash)
     rows = []
     fixture_hash.each do |id, fixture_data|
-      rows << [fixture_data["event_timestamp"][0..3].insert(2, ":"), fixture_data["homeTeam"],
-      fixture_data["awayTeam"], "#{fixture_data["goalsHomeTeam"]} - #{fixture_data["goalsAwayTeam"]}"]
+      rows << [fixture_data["homeTeam"], fixture_data["awayTeam"], "#{fixture_data["goalsHomeTeam"]} - #{fixture_data["goalsAwayTeam"]}"]
     end
     return "No Fixtures Found" if rows == []
-    Terminal::Table.new :title => "Live Matches", :headings => ["Time (Local)", "Home", "Away", "Live Score"], :rows => rows
+    Terminal::Table.new :title => "Live Matches", :headings => ["Home", "Away", "Live Score"], :rows => rows
   end
 
+  #Takes a to 10 hash and displays in a Leaderboard
   def self.top_10_leaderboard(top_10_hash, name="Leaderboard", value="#")
     rows = []
     top_10_hash.each { |name, score| rows << [name, score] }

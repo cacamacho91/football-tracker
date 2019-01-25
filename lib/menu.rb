@@ -16,9 +16,7 @@ class Menu
 
   #Main Menu with top level options
   def self.main_menu
-    system "clear"
-    puts Copy.header
-    puts Copy.sub_header
+    Copy.print_header
     prompt = TTY::Prompt.new
     options = [Copy.menu_myteams, Copy.menu_myleagues, Copy.menu_mystats, Copy.menu_showlive, Copy.menu_quit]
     self.main_menu_router(prompt.select(Copy.option_prompt, options, per_page: 25))
@@ -26,29 +24,23 @@ class Menu
 
   # The my teams menu
   def self.my_teams_menu
-    system "clear"
-    puts Copy.header
-    puts Copy.sub_header
+    Copy.print_header
     prompt = TTY::Prompt.new
-    options = [Copy.menu_back, Copy.team_menu_fixture_year, Copy.team_menu_current_players]
+    options = [Copy.menu_back, Copy.show_teams, Copy.team_menu_fixture_year, Copy.team_menu_current_players]
     self.my_teams_router(prompt.select(Copy.option_prompt, options, per_page: 25))
   end
 
   # The my leagues menu
   def self.my_leagues_menu
-    system "clear"
-    puts Copy.header
-    puts Copy.sub_header
+    Copy.print_header
     prompt = TTY::Prompt.new
-    options = [Copy.menu_back, Copy.league_menu_tables]
+    options = [Copy.menu_back, Copy.show_leagues, Copy.league_menu_tables, Copy.league_menu_fixtures]
     self.my_leagues_router(prompt.select(Copy.option_prompt, options, per_page: 25))
   end
 
   # The stats menu
   def self.stats_menu
-    system "clear"
-    puts Copy.header
-    puts Copy.sub_header
+    Copy.print_header
     prompt = TTY::Prompt.new
     options = [Copy.menu_back,
       Copy.stats_menu_same_users_team,
@@ -115,18 +107,22 @@ class Menu
     case option_selected
       when Copy.menu_back
         self.main_menu
+      when Copy.show_teams
+        $user.teams.each { |team| puts get_team_name_by_id(team.api_team_id) }
+        continue_menu
+        my_teams_menu
       when Copy.team_menu_fixture_year
         $user.teams.each do |team|
+          Copy.print_header
           puts Copy.future_fixtures(this_years_fixtures(get_team_fixtures(team.api_team_id)))
           continue_menu
-          system "clear"
         end
         self.my_teams_menu
       when Copy.team_menu_current_players
         $user.teams.each do |team|
+          Copy.print_header
           Copy.team_players(get_players_by_team(team.api_team_id)).each {|player| puts player}
           continue_menu
-          system "clear"
         end
         self.my_teams_menu
       else
@@ -141,13 +137,24 @@ class Menu
     case option_selected
       when Copy.menu_back
         self.main_menu
+      when Copy.show_leagues
+        $user.leagues.each { |league| puts get_league_name_by_id(league.api_league_id) }
+        continue_menu
+        self.my_leagues_menu
       when Copy.league_menu_tables
-        $user.leagues.each do
-          |league| puts Copy.league_standings(get_league_standings_by_league(league.api_league_id))
+        $user.leagues.each do |league|
+          Copy.print_header
+          puts Copy.league_standings(get_league_standings_by_league(league.api_league_id))
           continue_menu
-          system "clear"
         end
-        self.main_menu
+        self.my_leagues_menu
+      when Copy.league_menu_fixtures
+        $user.leagues.each do |league|
+          Copy.print_header
+          puts Copy.future_fixtures(this_years_fixtures(get_league_fixtures(league.api_league_id)))
+          continue_menu
+        end
+        self.my_leagues_menu
       else
         puts Copy.unknown_input
         self.continue_menu

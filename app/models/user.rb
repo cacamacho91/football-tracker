@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   def suggest_leagues
     all_users = self.leagues.map {|league| league.users}.flatten.uniq.drop(1)
     all_users_array = all_users.collect{|user| user.leagues}.flatten.uniq
-    all_api_ids = all_users_array.map {|team| get_league_name_by_id(team.api_league_id)}
+    all_api_ids = all_users_array.map {|team| get_league_name_by_id(team.api_league_id)}.flatten.uniq
   end
 
   #Class Methods
