@@ -77,7 +77,6 @@ class Menu
     end
   end
 
-
   # The routing for the main menu
   def self.main_menu_router(option_selected)
     case option_selected

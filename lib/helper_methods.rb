@@ -1,12 +1,12 @@
 #### ALL Methods to help support other areas of the app
 
-#takes a hash of fixtures and returns all of those that are this year
+#Takes a hash of fixtures and returns all of those that are this year
 def this_years_fixtures(fixture_hash)
   current_year = Time.new.year.to_s
   fixture_hash.select {|id, fixture_data| fixture_data["event_date"][0..3] == current_year}
 end
 
-# THESE ARE ALL THE STATISTICS METHODS
+#Returns a hash of the users who support the most teams
 def top_10_fans
   users_array = UserTeam.all.collect{|user| user.user_id}
   most_common_value = users_array.uniq.sort_by{ |i| users_array.count( i ) }.reverse
@@ -21,6 +21,7 @@ def top_10_fans
   return_hash
 end
 
+#Returns a hash of the users who follow the most leagues
 def top_10_followers
   users_array = UserLeague.all.collect{|user| user.user_id}
   most_common_value = users_array.uniq.sort_by{ |i| users_array.count( i ) }.reverse
@@ -35,6 +36,7 @@ def top_10_followers
   return_hash
 end
 
+#returns an array of the names of the top 5 most followed leagues
 def top_5_leagues
   league_names = []
   leagues = UserLeague.all.collect{|league| league.league_id}
@@ -45,7 +47,7 @@ def top_5_leagues
   league_names
 end
 
-
+#returns an array of the names of the top 5 most followed teams
 def top_5_teams
   team_names = []
   teams = UserTeam.all.collect{|team| team.team_id}

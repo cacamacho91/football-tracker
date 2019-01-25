@@ -33,6 +33,7 @@ class Copy
   def self.wait_long
     sleep(4)
   end
+  #Clears system and prints headers
   def self.print_header
     system "clear"
     puts self.header

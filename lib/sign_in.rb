@@ -87,14 +87,15 @@ class SignIn
     end
   end
 
+  #sends text to user
   def self.send_text(user)
     puts "Thank You, Your Password Has Been Sent To The Mobile Number You Have Provided...."
     ENV["NUMBER"] = user.mobile_number
     ENV["PASS"] = user.password
-    #fork {exec 'ruby ../football-tracker/text_user.rb'}
     system("ruby ../football-tracker/text_user.rb")
   end
 
+  #forgot password flow
   def self.forgot_password
     puts Copy.get_name
     name = self.get_stripped_input
@@ -110,5 +111,4 @@ class SignIn
   end
 end
 
-  # class end
 end
