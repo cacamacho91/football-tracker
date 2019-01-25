@@ -31,11 +31,12 @@ Build Stable
 ## Installation
 1. Git clone the project
 2. Bundle install
-3. Run from the root directory:
+3. Insert your Football-API keys in the environment file
+4. Run from the root directory:
 ```
 ruby bin/run.rb
 ```
-4. Enjoy the app
+5. Enjoy the app
 
 ## API's Used
 [API-Football](https://www.api-football.com/)
