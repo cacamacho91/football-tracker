@@ -1,7 +1,6 @@
 require_all 'app/'
 
 User.create(name: "Parik", password: "password")
-User.create(name: "Chris", password: "password")
 User.create(name: "Shane", password: "password")
 User.create(name: "Sapphie", password: "password")
 User.create(name: "Minha", password: "password")
@@ -118,13 +117,7 @@ UserTeam.create(user_id: 1, team_id: 7)
 UserTeam.create(user_id: 1, team_id: 12)
 UserTeam.create(user_id: 1, team_id: 18)
 UserTeam.create(user_id: 1, team_id: 25)
-UserTeam.create(user_id: 2, team_id: 1)
-UserTeam.create(user_id: 2, team_id: 4)
-UserTeam.create(user_id: 2, team_id: 6)
-UserTeam.create(user_id: 2, team_id: 1)
-UserTeam.create(user_id: 2, team_id: 45)
-UserTeam.create(user_id: 2, team_id: 56)
-UserTeam.create(user_id: 2, team_id: 70)
+
 
 UserTeam.create(user_id: 3, team_id: 2)
 UserTeam.create(user_id: 3, team_id: 6)
